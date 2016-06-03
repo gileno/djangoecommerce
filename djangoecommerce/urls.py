@@ -20,5 +20,8 @@ from core import views
 
 urlpatterns = [
     url(r'^$', views.index),
+    url(r'^contato/$', views.contact),
+    url(r'^produto/$', views.product),
+    url(r'^produtos/$', views.product_list),
     url(r'^admin/', admin.site.urls),
 ]
