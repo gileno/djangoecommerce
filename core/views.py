@@ -5,4 +5,9 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return HttpResponse('Hello World')
+    texts = ['Lorem ipsum', 'dolor sit amet', 'consectetur']
+    context = {
+        'title': 'django e-commerce',
+        'texts': texts
+    }
+    return render(request, 'index.html', context)
