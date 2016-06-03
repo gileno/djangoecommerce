@@ -23,18 +23,18 @@
         <div class="navbar-collapse collapse" id="navbar-main">
           <ul class="nav navbar-nav">
             <li>
-              <a href="#">Início</a>
+              <a href="{% url 'index' %}">Início</a>
             </li>
             <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Categorias <span class="caret"></span></a>
+              <a class="dropdown-toggle" data-toggle="dropdown" href="{% url 'product_list' %}" id="download">Categorias <span class="caret"></span></a>
               <ul class="dropdown-menu" aria-labelledby="download">
-                <li><a href="">Notebooks</a></li>
-				<li><a href="">Acessórios</a></li>
-				<li><a href="">Celulares</a></li>
+                <li><a href="{% url 'product_list' %}">Notebooks</a></li>
+				<li><a href="{% url 'product_list' %}">Acessórios</a></li>
+				<li><a href="{% url 'product_list' %}">Celulares</a></li>
               </ul>
             </li>
 			<li>
-				<a href="contact.html">Contato</a>
+				<a href="{% url 'contact' %}">Contato</a>
 			</li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
