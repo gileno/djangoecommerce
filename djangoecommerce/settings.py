@@ -135,6 +135,8 @@ ALLOWED_HOSTS = ['*']
 
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 
+SERVE_STATIC = True
+
 try:
     from .local_settings import *
 except ImportError:

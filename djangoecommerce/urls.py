@@ -15,9 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.conf import settings
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from core import views
 from catalog import views as views_catalog
+
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -25,3 +28,6 @@ urlpatterns = [
     url(r'^catalogo/', include('catalog.urls', namespace='catalog')),
     url(r'^admin/', admin.site.urls),
 ]
+
+if settings.SERVE_STATIC:
+    urlpatterns += staticfiles_urlpatterns()
