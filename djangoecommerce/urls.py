@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
-from django.conf.urls.static import static
+from django.views.static import serve as serve_static
 
 from core import views
 from catalog import views as views_catalog
@@ -30,4 +30,9 @@ urlpatterns = [
 ]
 
 if settings.SERVE_STATIC:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += [
+        url(
+            r'^%s(?P<path>.*)$' % settings.STATIC_URL, serve_static,
+            kwargs={'document_root': settings.STATIC_ROOT}
+        ),
+    ]
