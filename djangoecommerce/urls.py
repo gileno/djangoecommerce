@@ -28,11 +28,3 @@ urlpatterns = [
     url(r'^catalogo/', include('catalog.urls', namespace='catalog')),
     url(r'^admin/', admin.site.urls),
 ]
-
-if settings.SERVE_STATIC:
-    urlpatterns += [
-        url(
-            r'^%s(?P<path>.*)$' % settings.STATIC_URL, serve_static,
-            kwargs={'document_root': settings.STATIC_ROOT}
-        ),
-    ]
