@@ -4,3 +4,4 @@ gunicorn==19.4.5
 psycopg2==2.6.1
 model-mommy==1.2.6
 whitenoise==3.2
+django-widget-tweaks==1.4.1
