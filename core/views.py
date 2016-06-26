@@ -4,12 +4,17 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.mail import send_mail
 from django.conf import settings
+from django.views.generic import View, TemplateView
 
 from .forms import ContactForm
 
 
-def index(request):
-    return render(request, 'index.html')
+class IndexView(TemplateView):
+
+    template_name = 'index.html'
+
+
+index = IndexView.as_view()
 
 
 def contact(request):
