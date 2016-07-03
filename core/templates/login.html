@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+
+{% block title %}Entrar | {{ block.super }}{% endblock %}
+
+{% block container %}
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="page-header">
+            <h1>Entrar</h1>
+        </div>
+        <form class="form-horizontal" method="post">
+            {% csrf_token %}
+            {% for error in form.non_field_errors %}
+            <div class="alert alert-danger">
+                {{ error }}
+            </div>
+            {% endfor %}
+            <fieldset>
+                <div class="form-group{% if form.username.errors %} has-error{% endif %}">
+                  <label for="{{ form.username.auto_id }}" class="col-md-3 control-label">{{ form.username.label }}</label>
+                  <div class="col-md-9">
+                    {% render_field form.username class="form-control" %}
+                    {% for error in form.username.errors %}
+                    <span class="help-block">{{ error }}</span>
+                    {% endfor %}
+                  </div>
+                </div>
+                <div class="form-group{% if form.password.errors %} has-error{% endif %}">
+                  <label for="{{ form.password.auto_id }}" class="col-md-3 control-label">{{ form.password.label }}</label>
+                  <div class="col-md-9">
+                    {% render_field form.password class="form-control" %}
+                    {% for error in form.password.errors %}
+                    <span class="help-block">{{ error }}</span>
+                    {% endfor %}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-md-9 col-md-offset-3">
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                  </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+{% endblock %}
