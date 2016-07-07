@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     # apps
     'core',
+    'accounts',
     'catalog',
 ]
 
@@ -148,6 +149,7 @@ DEFAULT_FROM_EMAIL = 'admin@djangoecommerce.com'
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'index'
 LOGOUT_URL = 'logout'
+AUTH_USER_MODEL = 'accounts.User'
 
 try:
     from .local_settings import *
