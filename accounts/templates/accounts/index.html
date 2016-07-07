@@ -12,12 +12,12 @@
         <div class="list-group">
           <a href="#" class="list-group-item active">Minha Conta</a>
           <a href="{% url 'accounts:update_user' %}" class="list-group-item">Alterar Dados</a>
-          <a href="#" class="list-group-item">Alterar Senha</a>
+          <a href="{% url 'accounts:update_password' %}" class="list-group-item">Alterar Senha</a>
         </div>
     </div>
     <div class="col-md-8">
         {% block accounts_container %}
-            <h2>Bem vindo Fulano</h2>
+            <h2>Bem vindo {{ user }}</h2>
         {% endblock %}
     </div>
 </div>
