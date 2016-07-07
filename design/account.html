@@ -1,20 +1,19 @@
 <!DOCTYPE html>
-{% load static %}
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>{% block title %}Django E-Commerce{% endblock %}</title>
+	<title>Django E-Commerce</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<link rel="stylesheet" href="{% static 'assets/bootstrap.min.css' %}" media="screen" />
-	<link rel="stylesheet" href="{% static 'assets/custom.min.css' %}" media="screen" />
-	<link rel="stylesheet" href="{% static 'assets/extra.css' %}" media="screen" />
+	<link rel="stylesheet" href="assets/bootstrap.min.css" media="screen" />
+	<link rel="stylesheet" href="assets/custom.min.css" media="screen" />
+    <link rel="stylesheet" href="assets/extra.css" media="screen" />
 </head>
 <body>
     <div class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <a href="" class="navbar-brand">Django E-Commerce</a>
+          <a href="../" class="navbar-brand">Django E-Commerce</a>
           <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -24,33 +23,43 @@
         <div class="navbar-collapse collapse" id="navbar-main">
           <ul class="nav navbar-nav">
             <li>
-              <a href="{% url 'index' %}">Início</a>
+              <a href="#">Início</a>
             </li>
             <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="{% url 'catalog:product_list' %}" id="download">Categorias <span class="caret"></span></a>
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Categorias <span class="caret"></span></a>
               <ul class="dropdown-menu" aria-labelledby="download">
-				{% for category in categories %}
-				<li><a href="{{ category.get_absolute_url }}">{{ category }}</a></li>
-				{% endfor %}
+                <li><a href="">Notebooks</a></li>
+				<li><a href="">Acessórios</a></li>
+				<li><a href="">Celulares</a></li>
               </ul>
             </li>
 			<li>
-				<a href="{% url 'contact' %}">Contato</a>
+				<a href="contact.html">Contato</a>
 			</li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-			{% if user.is_authenticated %}
-			<li><a href="{% url 'logout' %}">Sair</a></li>
-			{% else %}
-			<li><a href="{% url 'login' %}">Entrar</a></li>
-			<li><a href="{% url 'accounts:register' %}">Registro</a></li>
-			{% endif %}
+            <li><a href="#">Minha Conta</a></li>
           </ul>
         </div>
       </div>
     </div>
     <div class="container margin-top">
-		{% block container %}{% endblock %}
+        <ol class="breadcrumb">
+          <li><a href="#">Início</a></li>
+          <li class="active">Minha Conta</li>
+        </ol>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="list-group">
+                  <a href="#" class="list-group-item active">Minha Conta</a>
+                  <a href="#" class="list-group-item">Alterar Dados</a>
+                  <a href="#" class="list-group-item">Alterar Senha</a>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <h2>Bem vindo Fulano</h2>
+            </div>
+        </div>
 		<footer>
 			<div class="row">
 			  <div class="col-lg-12">
@@ -66,6 +75,6 @@
 		</footer>
 	</div>
 	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="{% static 'assets/bootstrap.min.js' %}"></script>
+    <script src="assets/bootstrap.min.js"></script>
 </body>
 </html>
