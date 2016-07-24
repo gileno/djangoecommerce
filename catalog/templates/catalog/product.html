@@ -15,6 +15,9 @@
       </a>
   </div>
   <div class="col-sm-8">
+      <p class="text-right">
+          <a href="{% url 'checkout:create_cartitem' product.slug %}" class="btn btn-success">Adicionar ao Carrinho</a>
+      </p>
       {{ product.description|linebreaks }}
   </div>
 </div>

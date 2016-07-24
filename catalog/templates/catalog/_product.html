@@ -1,0 +1,12 @@
+<div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+        <a href="{{ product.get_absolute_url }}">
+            <img src="http://placehold.it/350x250" alt="" />
+        </a>
+        <div class="caption">
+            <h3>{{ product }}</h3>
+            {{ product.description|linebreaks }}
+            <p><a href="{{ product.get_absolute_url }}" class="btn btn-success" role="button">Detalhes</a> <a href="{% url 'checkout:create_cartitem' product.slug %}" class="btn btn-default" role="button">Adicionar</a></p>
+        </div>
+    </div>
+</div>
