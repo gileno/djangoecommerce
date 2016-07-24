@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'core',
     'accounts',
     'catalog',
+    'checkout',
 ]
 
 MIDDLEWARE_CLASSES = [
