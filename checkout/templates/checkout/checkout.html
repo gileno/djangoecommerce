@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}
+Finalização da Compra
+{% endblock %}
+
+{% block container %}
+<ol class="breadcrumb">
+  <li><a href="{% url 'index' %}">Início</a></li>
+  <li><a href="{% url 'checkout:cart_item' %}">Carrinho de Compras</a></li>
+  <li class="active">Finalização da Compra</li>
+</ol>
+<div class="page-header">
+    <h1>Finalização da Compra</h1>
+</div>
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="alert alert-success">
+            Seu pedido foi realizado com sucesso, para realizar o pagamento faça o depósito na seguinte conta:
+        </div>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+    </div>
+</div>
+{% endblock %}

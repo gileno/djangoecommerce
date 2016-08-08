@@ -63,7 +63,7 @@ Carrinho de Compras
             <p class="text-right">
                 <a href="{% url 'catalog:product_list' %}" class="pull-left btn btn-default">Continuar Compras</a>
                 <button type="submit" class="btn btn-primary" name="button">Atualizar Carrinho</button></li>
-                <a href="#" class="btn btn-success">Finalizar Compra</a>
+                <a href="{% url 'checkout:checkout' %}" class="btn btn-success">Finalizar Compra</a>
             </p>
         </form>
     </div>
