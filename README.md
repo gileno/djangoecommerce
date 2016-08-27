@@ -1,5 +1,5 @@
 # Django Ecommerce
-Loja virtual - Projeto de didático utilizado para meu curso de Django
+Loja virtual - Projeto de didático utilizado para [meu curso de Django](https://www.udemy.com/construa-um-e-commerce-com-python-3-e-django/?couponCode=github)
 
 ![image](https://cloud.githubusercontent.com/assets/5832193/17952257/3ee3156e-6a3f-11e6-8add-6eeccbf68e3c.png)
 
