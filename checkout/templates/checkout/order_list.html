@@ -1,0 +1,50 @@
+{% extends "accounts/index.html" %}
+
+{% load pagination %}
+
+{% block title %}
+Meus Pedidos
+{% endblock %}
+
+{% block accounts_container %}
+<h2>Meus Pedidos</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Produtos
+            </th>
+            <th>
+                Situação
+            </th>
+            <th>
+                Data
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for order in object_list %}
+        <tr>
+            <td>
+                <a href="#">#{{ order.pk }}</a>
+            </td>
+            <td>
+                {% for product in order.products %}
+                {{ product.name }}{% if not forloop.last %}<br />{% endif %}
+                {% endfor %}
+            </td>
+            <td>
+                {{ order.get_status_display }}
+            </td>
+            <td>
+                {{ order.created|date:"d/m/Y" }}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% pagination request paginator page_obj %}
+{% endblock %}

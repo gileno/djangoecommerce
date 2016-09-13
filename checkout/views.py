@@ -1,7 +1,7 @@
 # coding=utf-8
 
 from django.shortcuts import get_object_or_404, redirect
-from django.views.generic import RedirectView, TemplateView
+from django.views.generic import RedirectView, TemplateView, ListView
 from django.forms import modelformset_factory
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -85,6 +85,16 @@ class CheckoutView(LoginRequiredMixin, TemplateView):
         return response
 
 
+class OrderListView(LoginRequiredMixin, ListView):
+
+    template_name = 'checkout/order_list.html'
+    paginate_by = 10
+
+    def get_queryset(self):
+        return Order.objects.filter(user=self.request.user)
+
+
 create_cartitem = CreateCartItemView.as_view()
 cart_item = CartItemView.as_view()
 checkout = CheckoutView.as_view()
+order_list = OrderListView.as_view()

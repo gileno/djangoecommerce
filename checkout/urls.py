@@ -10,5 +10,6 @@ urlpatterns = [
         name='create_cartitem'
     ),
     url(r'^carrinho/$', views.cart_item, name='cart_item'),
-    url(r'^finalizando/$', views.checkout, name='checkout')
+    url(r'^finalizando/$', views.checkout, name='checkout'),
+    url(r'^meus-pedidos/$', views.order_list, name='order_list'),
 ]

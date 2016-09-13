@@ -3,6 +3,8 @@
 from django.db import models
 from django.conf import settings
 
+from catalog.models import Product
+
 
 class CartItemManager(models.Manager):
 
@@ -86,6 +88,10 @@ class Order(models.Model):
 
     def __str__(self):
         return 'Pedido #{}'.format(self.pk)
+
+    def products(self):
+        products_ids = self.items.values_list('product')
+        return Product.objects.filter(pk__in=products_ids)
 
 
 class OrderItem(models.Model):
