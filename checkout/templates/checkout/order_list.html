@@ -29,7 +29,7 @@ Meus Pedidos
         {% for order in object_list %}
         <tr>
             <td>
-                <a href="#">#{{ order.pk }}</a>
+                <a href="{% url 'checkout:order_detail' order.pk %}">#{{ order.pk }}</a>
             </td>
             <td>
                 {% for product in order.products %}
