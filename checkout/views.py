@@ -135,7 +135,7 @@ class PagSeguroView(LoginRequiredMixin, RedirectView):
 @csrf_exempt
 def pagseguro_notification(request):
     notification_code = request.POST.get('notificationCode', None)
-    logger.debug('PagSeguro Notification %s' % notification_code)
+    logger.info('PagSeguro Notification %s' % notification_code)
     if notification_code:
         if settings.PAGSEGURO_SANDBOX:
             pg = PagSeguro(
@@ -149,7 +149,7 @@ def pagseguro_notification(request):
         notification_data = pg.check_notification(notification_code)
         status = notification_data['status']
         reference = notification_data['reference']
-        logger.debug('PagSeguro Notification Data REF%s status %s' % (reference, status))
+        logger.info('PagSeguro Notification Data REF%s status %s' % (reference, status))
         try:
             order = Order.objects.get(pk=reference)
         except Order.DoesNotExist:
