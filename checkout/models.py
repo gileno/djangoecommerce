@@ -1,5 +1,7 @@
 # coding=utf-8
 
+from pagseguro import PagSeguro, ConfigSandbox
+
 from django.db import models
 from django.conf import settings
 
@@ -101,6 +103,33 @@ class Order(models.Model):
             )
         )
         return aggregate_queryset['total']
+
+    def pagseguro(self):
+        if settings.PAGSEGURO_SANDBOX:
+            pg = PagSeguro(
+                email=settings.PAGSEGURO_EMAIL, token=settings.PAGSEGURO_TOKEN,
+                config=ConfigSandbox()
+            )
+        else:
+            pg = PagSeguro(
+                email=settings.PAGSEGURO_EMAIL, token=settings.PAGSEGURO_TOKEN
+            )
+        pg.sender = {
+            'email': self.user.email
+        }
+        pg.reference_prefix = None
+        pg.shipping = None
+        pg.reference = self.pk
+        for item in self.items.all():
+            pg.items.append(
+                {
+                    'id': item.product.pk,
+                    'description': item.product.name,
+                    'quantity': item.quantity,
+                    'amount': '%.2f' % item.price
+                }
+            )
+        return pg
 
 
 class OrderItem(models.Model):

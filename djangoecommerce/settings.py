@@ -168,6 +168,10 @@ MESSAGE_TAGS = {
     messages_constants.ERROR: 'danger',
 }
 
+PAGSEGURO_TOKEN = ''
+PAGSEGURO_EMAIL = 'contato@gilenofilho.com.br'
+PAGSEGURO_SANDBOX = True
+
 try:
     from .local_settings import *
 except ImportError:

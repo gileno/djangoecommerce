@@ -104,8 +104,28 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
         return Order.objects.filter(user=self.request.user)
 
 
+class PagSeguroView(LoginRequiredMixin, RedirectView):
+
+    def get_redirect_url(self, *args, **kwargs):
+        order_pk = self.kwargs.get('pk')
+        order = get_object_or_404(
+            Order.objects.filter(user=self.request.user), pk=order_pk
+        )
+        pg = order.pagseguro()
+        pg.redirect_url = self.request.build_absolute_uri(
+            reverse('checkout:order_detail', args=[order.pk])
+        )
+        # pg.notification_url = self.request.build_absolute_uri(
+        #
+        # )
+        response = pg.checkout()
+        return response.payment_url
+
+
+
 create_cartitem = CreateCartItemView.as_view()
 cart_item = CartItemView.as_view()
 checkout = CheckoutView.as_view()
 order_list = OrderListView.as_view()
 order_detail = OrderDetailView.as_view()
+pagseguro_view = PagSeguroView.as_view()
