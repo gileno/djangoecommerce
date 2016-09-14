@@ -143,8 +143,12 @@ def pagseguro_notification(request):
         notification_data = pg.check_notification(notification_code)
         status = notification_data['status']
         reference = notification_data['reference']
-        order = get_object_or_404(Order, pk=reference)
-        order.pagseguro_update_status(status)
+        try:
+            order = Order.objects.get(pk=reference)
+        except Order.DoesNotExist:
+            pass
+        else:
+            order.pagseguro_update_status(status)
     return HttpResponse('OK')
 
 
