@@ -104,6 +104,13 @@ class Order(models.Model):
         )
         return aggregate_queryset['total']
 
+    def pagseguro_update_status(self, status):
+        if status == 3:
+            self.status = 1
+        elif status == 7:
+            self.status = 2
+        self.save()
+
     def pagseguro(self):
         if settings.PAGSEGURO_SANDBOX:
             pg = PagSeguro(
@@ -117,7 +124,7 @@ class Order(models.Model):
         pg.sender = {
             'email': self.user.email
         }
-        pg.reference_prefix = None
+        pg.reference_prefix = ''
         pg.shipping = None
         pg.reference = self.pk
         for item in self.items.all():

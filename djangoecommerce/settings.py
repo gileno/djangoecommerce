@@ -168,7 +168,7 @@ MESSAGE_TAGS = {
     messages_constants.ERROR: 'danger',
 }
 
-PAGSEGURO_TOKEN = ''
+PAGSEGURO_TOKEN = 'E2D29EA702AC4E629FAEC5711C509D97'
 PAGSEGURO_EMAIL = 'contato@gilenofilho.com.br'
 PAGSEGURO_SANDBOX = True
 
