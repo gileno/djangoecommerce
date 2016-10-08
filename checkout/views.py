@@ -1,6 +1,6 @@
 # coding=utf-8
 
-from pagseguro import PagSeguro, ConfigSandbox
+from pagseguro import PagSeguro
 
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404, redirect
@@ -131,15 +131,10 @@ class PagSeguroView(LoginRequiredMixin, RedirectView):
 def pagseguro_notification(request):
     notification_code = request.POST.get('notificationCode', None)
     if notification_code:
-        if settings.PAGSEGURO_SANDBOX:
-            pg = PagSeguro(
-                email=settings.PAGSEGURO_EMAIL, token=settings.PAGSEGURO_TOKEN,
-                config=ConfigSandbox()
-            )
-        else:
-            pg = PagSeguro(
-                email=settings.PAGSEGURO_EMAIL, token=settings.PAGSEGURO_TOKEN
-            )
+        pg = PagSeguro(
+            email=settings.PAGSEGURO_EMAIL, token=settings.PAGSEGURO_TOKEN,
+            config={'sandbox': settings.PAGSEGURO_SANDBOX}
+        )
         notification_data = pg.check_notification(notification_code)
         status = notification_data.status
         reference = notification_data.reference
