@@ -3,6 +3,8 @@
 from pagseguro import PagSeguro
 
 from paypal.standard.forms import PayPalPaymentsForm
+from paypal.standard.models import ST_PP_COMPLETED
+from paypal.standard.ipn.signals import valid_ipn_received
 
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404, redirect
@@ -168,6 +170,20 @@ def pagseguro_notification(request):
         else:
             order.pagseguro_update_status(status)
     return HttpResponse('OK')
+
+
+def paypal_notification(sender, **kwargs):
+    ipn_obj = sender
+    if ipn_obj.payment_status == ST_PP_COMPLETED and \
+        ipn_obj.receiver_email == settings.PAYPAL_EMAIL:
+        try:
+            order = Order.objects.get(pk=ipn_obj.invoice)
+            order.complete()
+        except Order.DoesNotExist:
+            pass
+
+
+valid_ipn_received.connect(paypal_notification)
 
 
 create_cartitem = CreateCartItemView.as_view()

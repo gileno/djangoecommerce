@@ -111,6 +111,10 @@ class Order(models.Model):
             self.status = 2
         self.save()
 
+    def complete(self):
+        self.status = 1
+        self.save()
+
     def pagseguro(self):
         pg = PagSeguro(
             email=settings.PAGSEGURO_EMAIL, token=settings.PAGSEGURO_TOKEN,
