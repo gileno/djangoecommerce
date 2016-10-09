@@ -88,6 +88,7 @@ class CheckoutView(LoginRequiredMixin, TemplateView):
             order = Order.objects.create_order(
                 user=request.user, cart_items=cart_items
             )
+            cart_items.delete()
         else:
             messages.info(request, 'Não há itens no carrinho de compras')
             return redirect('checkout:cart_item')
@@ -102,7 +103,7 @@ class OrderListView(LoginRequiredMixin, ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        return Order.objects.filter(user=self.request.user)
+        return Order.objects.filter(user=self.request.user).order_by('-pk')
 
 
 class OrderDetailView(LoginRequiredMixin, DetailView):
