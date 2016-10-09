@@ -148,6 +148,9 @@ class PaypalView(LoginRequiredMixin, TemplateView):
         paypal_dict['cancel_return'] = self.request.build_absolute_uri(
             reverse('checkout:order_list')
         )
+        paypal_dict['notify_url'] = self.request.build_absolute_uri(
+            reverse('paypal-ipn')
+        )
         context['form'] = PayPalPaymentsForm(initial=paypal_dict)
         return context
 
