@@ -18,7 +18,7 @@ Finalização da Compra
         <a href="{% url 'checkout:pagseguro_view' order.pk %}" class="btn btn-success">Pagar com Pagseguro</a>
     </div>
     <div class="col-md-4">
-        <a href="#" class="btn btn-primary">Pagar com Paypal</a>
+        <a href="{% url 'checkout:paypal_view' order.pk %}" class="btn btn-primary">Pagar com Paypal</a>
     </div>
 </div>
 {% endblock %}

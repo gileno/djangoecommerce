@@ -1,6 +1,6 @@
 # coding=utf-8
 
-from pagseguro import PagSeguro, ConfigSandbox
+from pagseguro import PagSeguro
 
 from django.db import models
 from django.conf import settings
@@ -112,15 +112,10 @@ class Order(models.Model):
         self.save()
 
     def pagseguro(self):
-        if settings.PAGSEGURO_SANDBOX:
-            pg = PagSeguro(
-                email=settings.PAGSEGURO_EMAIL, token=settings.PAGSEGURO_TOKEN,
-                config=ConfigSandbox()
-            )
-        else:
-            pg = PagSeguro(
-                email=settings.PAGSEGURO_EMAIL, token=settings.PAGSEGURO_TOKEN
-            )
+        pg = PagSeguro(
+            email=settings.PAGSEGURO_EMAIL, token=settings.PAGSEGURO_TOKEN,
+            config={'sandbox': settings.PAGSEGURO_SANDBOX}
+        )
         pg.sender = {
             'email': self.user.email
         }
@@ -137,6 +132,23 @@ class Order(models.Model):
                 }
             )
         return pg
+
+    def paypal(self):
+        paypal_dict = {
+            'upload': '1',
+            'business': settings.PAYPAL_EMAIL,
+            'invoice': self.pk,
+            'cmd': '_cart',
+            'currency_code': 'BRL',
+            'charset': 'utf-8',
+        }
+        index = 1
+        for item in self.items.all():
+            paypal_dict['amount_{}'.format(index)] = '%.2f' % item.price
+            paypal_dict['item_name_{}'.format(index)] = item.product.name
+            paypal_dict['quantity_{}'.format(index)] = item.quantity
+            index = index + 1
+        return paypal_dict
 
 
 class OrderItem(models.Model):

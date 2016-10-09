@@ -2,6 +2,8 @@
 
 from pagseguro import PagSeguro
 
+from paypal.standard.forms import PayPalPaymentsForm
+
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import (
@@ -127,6 +129,27 @@ class PagSeguroView(LoginRequiredMixin, RedirectView):
         return response.payment_url
 
 
+class PaypalView(LoginRequiredMixin, TemplateView):
+
+    template_name = 'checkout/paypal.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(PaypalView, self).get_context_data(**kwargs)
+        order_pk = self.kwargs.get('pk')
+        order = get_object_or_404(
+            Order.objects.filter(user=self.request.user), pk=order_pk
+        )
+        paypal_dict = order.paypal()
+        paypal_dict['return_url'] = self.request.build_absolute_uri(
+            reverse('checkout:order_list')
+        )
+        paypal_dict['cancel_return'] = self.request.build_absolute_uri(
+            reverse('checkout:order_list')
+        )
+        context['form'] = PayPalPaymentsForm(initial=paypal_dict)
+        return context
+
+
 @csrf_exempt
 def pagseguro_notification(request):
     notification_code = request.POST.get('notificationCode', None)
@@ -153,3 +176,4 @@ checkout = CheckoutView.as_view()
 order_list = OrderListView.as_view()
 order_detail = OrderDetailView.as_view()
 pagseguro_view = PagSeguroView.as_view()
+paypal_view = PaypalView.as_view()
