@@ -8,8 +8,6 @@ NUM_WORKERS=3
 DJANGO_SETTINGS_MODULE=djangoecommerce.settings
 DJANGO_WSGI_MODULE=djangoecommerce.wsgi
 
-echo "Starting $NAME as `whoami`"
-
 # Activate the virtual environment
 cd $DJANGODIR
 source ../bin/activate
