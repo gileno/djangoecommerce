@@ -9,3 +9,5 @@ pagseguro==0.3.2
 django-paypal==0.3.3
 Pillow==3.3.0
 easy-thumbnails==2.3
+django-storages==1.5.1
+boto==2.43.0
