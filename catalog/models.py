@@ -31,6 +31,9 @@ class Product(models.Model):
     category = models.ForeignKey('catalog.Category', verbose_name='Categoria')
     description = models.TextField('Descrição', blank=True)
     price = models.DecimalField('Preço', decimal_places=2, max_digits=8)
+    image = models.ImageField(
+        'Imagem', upload_to='products', blank=True, null=True
+    )
 
     created = models.DateTimeField('Criado em', auto_now_add=True)
     modified = models.DateTimeField('Modificado em', auto_now=True)
