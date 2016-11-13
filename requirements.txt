@@ -8,3 +8,4 @@ django-widget-tweaks==1.4.1
 pagseguro==0.3.2
 django-paypal==0.3.3
 Pillow==3.3.0
+easy-thumbnails==2.3

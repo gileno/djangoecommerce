@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # libs
     'widget_tweaks',
+    'easy_thumbnails',
     'paypal.standard.ipn',
     # apps
     'core',
@@ -174,6 +175,13 @@ PAGSEGURO_SANDBOX = True
 
 PAYPAL_TEST = True
 PAYPAL_EMAIL = 'contato@gilenofilho.com.br'
+
+# Thumbnails
+THUMBNAIL_ALIASES = {
+    '': {
+        'product_image': {'size': (285, 160), 'crop': True},
+    },
+}
 
 try:
     from .local_settings import *
