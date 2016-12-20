@@ -14,7 +14,7 @@
     <div class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <a href="" class="navbar-brand">Django E-Commerce</a>
+          <a href="{% url 'index' %}" class="navbar-brand">Django E-Commerce</a>
           <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -24,7 +24,7 @@
         <div class="navbar-collapse collapse" id="navbar-main">
           <ul class="nav navbar-nav">
             <li>
-              <a href="{% url 'index' %}">Início</a>
+              <a href="{% url 'catalog:product_list' %}">Produtos</a>
             </li>
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="{% url 'catalog:product_list' %}" id="download">Categorias <span class="caret"></span></a>
@@ -38,6 +38,11 @@
 				<a href="{% url 'contact' %}">Contato</a>
 			</li>
           </ul>
+		  <form class="navbar-form navbar-left" role="search" action="{% url 'catalog:product_list' %}">
+	        <div class="form-group">
+	          <input name="q" type="text" class="form-control" placeholder="Pesquisar..." />
+	        </div>
+	      </form>
           <ul class="nav navbar-nav navbar-right">
 			  <li><a href="{% url 'checkout:cart_item' %}">Carrinho</a></li>
 			{% if user.is_authenticated %}
