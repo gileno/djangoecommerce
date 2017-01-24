@@ -1,6 +1,7 @@
 # coding=utf-8
 
 import logging
+import json
 
 from pagseguro import PagSeguro
 
@@ -11,7 +12,7 @@ from paypal.standard.ipn.signals import valid_ipn_received
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import (
-    RedirectView, TemplateView, ListView, DetailView
+    RedirectView, TemplateView, ListView, DetailView, View
 )
 from django.forms import modelformset_factory
 from django.contrib import messages
@@ -28,9 +29,9 @@ from .models import CartItem, Order
 logger = logging.getLogger('checkout.views')
 
 
-class CreateCartItemView(RedirectView):
+class CreateCartItemView(View):
 
-    def get_redirect_url(self, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         product = get_object_or_404(Product, slug=self.kwargs['slug'])
         logger.debug('Produto %s adicionado ao carrinho' % product)
         if self.request.session.session_key is None:
@@ -39,10 +40,15 @@ class CreateCartItemView(RedirectView):
             self.request.session.session_key, product
         )
         if created:
-            messages.success(self.request, 'Produto adicionado com sucesso')
+            message = 'Produto adicionado com sucesso'
         else:
-            messages.success(self.request, 'Produto atualizado com sucesso')
-        return reverse('checkout:cart_item')
+            message = 'Produto atualizado com sucesso'
+        if request.is_ajax():
+            return HttpResponse(
+                json.dumps({'message': message}), content_type='application/javascript'
+            )
+        messages.success(request, message)
+        return redirect('checkout:cart_item')
 
 
 class CartItemView(TemplateView):
